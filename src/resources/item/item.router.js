@@ -9,6 +9,7 @@ router
   .get(controllers.getOne)
   .post(controllers.createOne)
 
+router.route('/all').get(controllers.getMany)
 // /api/item/:id
 router
   .route('/:id')

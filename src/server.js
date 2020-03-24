@@ -8,6 +8,7 @@ import { connect } from './utils/db'
 import userRouter from './resources/user/user.router'
 import itemRouter from './resources/item/item.router'
 import listRouter from './resources/list/list.router'
+import { getAllUsers } from './resources/user/user.controllers'
 
 export const app = express()
 
@@ -22,6 +23,7 @@ app.post('/signup', signup)
 app.post('/signin', signin)
 
 app.use('/api', protect)
+app.get('/api/user/all', getAllUsers)
 app.use('/api/user', userRouter)
 app.use('/api/item', itemRouter)
 app.use('/api/list', listRouter)

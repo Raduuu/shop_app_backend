@@ -51,9 +51,9 @@ export const signin = async (req, res) => {
     if (!match) {
       return res.status(401).send(invalid)
     }
-
+    console.log('user', user)
     const token = newToken(user)
-    return res.status(201).send({ token })
+    return res.status(201).send({ token, admin: user.admin || false })
   } catch (e) {
     console.error(e)
     res.status(500).end()
@@ -64,6 +64,7 @@ export const protect = async (req, res, next) => {
   const bearer = req.headers.authorization
 
   if (!bearer || !bearer.startsWith('Bearer ')) {
+    console.log(bearer)
     return res.status(401).end()
   }
 
@@ -72,7 +73,7 @@ export const protect = async (req, res, next) => {
   try {
     payload = await verifyToken(token)
   } catch (e) {
-    return res.status(401).end()
+    return res.status(401).send('not verified')
   }
 
   const user = await User.findById(payload.id)

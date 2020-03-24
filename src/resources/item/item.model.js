@@ -8,24 +8,28 @@ const itemSchema = new mongoose.Schema(
       trim: true,
       maxlength: 50
     },
-    status: {
+    description: {
       type: String,
       required: true,
-      enum: ['active', 'complete', 'pastdue'],
-      default: 'active'
+      trim: true,
+      maxlength: 100
     },
-    notes: String,
-    due: Date,
+    quantity: {
+      type: Number,
+      required: true,
+      trim: true,
+      maxlength: 3
+    },
     createdBy: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'user',
       required: true
-    },
-    list: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'list',
-      required: true
     }
+    // list: {
+    //   type: mongoose.SchemaTypes.ObjectId,
+    //   ref: 'list',
+    //   required: true
+    // }
   },
   { timestamps: true }
 )
