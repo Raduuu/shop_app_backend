@@ -13,7 +13,7 @@ const router = Router()
 // /api/user
 router
   .route('/')
-  .put(updateMe)
+  .get(controllers.getMany)
   .post(controllers.createOne)
 
 // /api/user/all

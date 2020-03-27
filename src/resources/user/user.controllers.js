@@ -23,7 +23,6 @@ export const getAllUsers = model => async (req, res) => {
 }
 
 export const updateMe = async (req, res) => {
-  console.log('req', req.user, req.body)
   try {
     const user = await User.findByIdAndUpdate(
       req.body.user._id,
