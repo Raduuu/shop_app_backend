@@ -23,7 +23,7 @@ app.post('/signin', signin)
 
 app.use('/api', protect)
 app.use('/api/user', userRouter)
-app.use('/api/item', productRouter)
+app.use('/api/product', productRouter)
 app.use('/api/list', listRouter)
 
 export const start = async () => {

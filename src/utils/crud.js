@@ -17,6 +17,7 @@ export const getOne = model => async (req, res) => {
 }
 
 export const getMany = model => async (req, res) => {
+  console.log('getMany', model)
   try {
     const docs = await model
       .find({})

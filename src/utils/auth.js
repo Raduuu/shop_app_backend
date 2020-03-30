@@ -52,7 +52,9 @@ export const signin = async (req, res) => {
       return res.status(401).send(invalid)
     }
     const token = newToken(user)
-    return res.status(201).send({ token, admin: user.admin || false })
+    return res
+      .status(201)
+      .send({ token, admin: user.admin || false, email: user.email })
   } catch (e) {
     console.error(e)
     res.status(500).end()
