@@ -1,6 +1,7 @@
 import config from '../config'
 import { User } from '../resources/user/user.model'
 import jwt from 'jsonwebtoken'
+import bcrypt from 'bcrypt'
 
 export const newToken = user => {
     return jwt.sign({ id: user._id }, config.secrets.jwt, {
@@ -64,22 +65,32 @@ export const signin = async (req, res) => {
 export const changePassword = async (req, res) => {
     try {
         if (!req.body.oldpassword || !req.body.newpassword) {
-            return res.status(400).send('both passwords need to be in request')
+            return res
+                .status(400)
+                .send({ message: 'both passwords need to be in request' })
         }
-        const user = await User.find({
+        const user = await User.findOne({
             email: req.body.email
         })
-        const password = user.changePassword(
-            req.body.oldpassword,
-            req.body.newpassword,
-            function(err) {
-                console.error(err)
-            }
-        )
-        if (!password) {
-            return res.status(401).send('Invalid request')
+
+        const match = await user.checkPassword(req.body.oldpassword)
+
+        if (!match) {
+            return res.status(403).send({ message: 'Password does not match' })
         }
-        return res.status(201).send({ password })
+
+        bcrypt.hash(req.body.newpassword, 8, (err, hash) => {
+            if (err) {
+                return
+            }
+            User.findOneAndUpdate({ email: req.body.email }, { password: hash })
+                .then(() =>
+                    res
+                        .status(202)
+                        .json({ message: 'Password change accepted' })
+                )
+                .catch(err => res.status(500).json(err))
+        })
     } catch (e) {
         console.error(e)
         res.status(500).end()
