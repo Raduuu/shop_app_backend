@@ -40,7 +40,7 @@ export const signin = async (req, res) => {
 
     try {
         const user = await User.findOne({ email: req.body.email })
-            .select('email password')
+            .select('email password admin')
             .exec()
 
         if (!user) {
@@ -53,6 +53,7 @@ export const signin = async (req, res) => {
             return res.status(401).send(invalid)
         }
         const token = newToken(user)
+        console.log(user)
         return res
             .status(201)
             .send({ token, admin: user.admin || false, email: user.email })
