@@ -11,8 +11,6 @@ router
     .get(controllers.getMany)
     .post(controllers.createOne)
 
-// /api/user/all
-// router.route('/all').get(getAllUsers)
 // /api/user/:id
 router
     .route('/:id')

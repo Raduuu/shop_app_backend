@@ -18,6 +18,11 @@ const userSchema = new mongoose.Schema(
             required: true,
             default: false
         },
+        coins: {
+            type: Number,
+            required: true,
+            default: 1000
+        },
         settings: {
             theme: {
                 type: String,
