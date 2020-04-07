@@ -17,7 +17,6 @@ export const getOne = model => async (req, res) => {
 }
 
 export const getMany = model => async (req, res) => {
-    console.log('getMany', model)
     try {
         const docs = await model
             .find({})
@@ -47,7 +46,6 @@ export const updateOne = model => async (req, res) => {
         const updatedDoc = await model
             .findOneAndUpdate(
                 {
-                    createdBy: req.user._id,
                     _id: req.params.id
                 },
                 req.body,
