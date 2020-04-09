@@ -12,10 +12,19 @@ const checkout = async (req, res) => {
             .exec()
 
         for (let i = 0; i < req.body.products.length; i++) {
+            totalPrice = totalPrice + product.price
+        }
+
+        if (totalPrice > user.coins) {
+            return res
+                .status(400)
+                .send({ message: "you don't have enough money" })
+        }
+
+        for (let i = 0; i < req.body.products.length; i++) {
             const product = await Product.findOne({
                 _id: req.body.products[i]._id
             })
-            totalPrice = totalPrice + product.price
             if (product.quantity - req.body.products[i].quantity < 0) {
                 return res.status(400).send({ message: 'not enough products' })
             } else {
@@ -37,12 +46,6 @@ const checkout = async (req, res) => {
 
                 data[i] = updatedDoc
             }
-        }
-
-        if (totalPrice > user.coins) {
-            return res
-                .status(400)
-                .send({ message: "you don't have enough money" })
         }
 
         const updatedUser = await User.findOneAndUpdate(
