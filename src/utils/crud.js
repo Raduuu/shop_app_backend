@@ -18,12 +18,17 @@ export const getOne = model => async (req, res) => {
 
 export const getMany = model => async (req, res) => {
     try {
+        const resultsPerPage = 10
+        const page = req.query.page > 1 ? req.query.page : 1
+        const count = await model.count()
         const docs = await model
             .find({})
+            .skip(resultsPerPage * page - resultsPerPage)
+            .limit(resultsPerPage)
             .lean()
             .exec()
 
-        res.status(200).json({ data: docs })
+        res.status(200).json({ data: docs, count: count })
     } catch (e) {
         console.error(e)
         res.status(400).end()
