@@ -40,7 +40,7 @@ export const signin = async (req, res) => {
 
     try {
         const user = await User.findOne({ email: req.body.email })
-            .select('email password admin')
+            .select('email password admin coins')
             .exec()
 
         if (!user) {
@@ -53,10 +53,12 @@ export const signin = async (req, res) => {
             return res.status(401).send(invalid)
         }
         const token = newToken(user)
-        console.log(user)
-        return res
-            .status(201)
-            .send({ token, admin: user.admin || false, email: user.email })
+        return res.status(201).send({
+            token,
+            admin: user.admin || false,
+            email: user.email,
+            coins: user.coins
+        })
     } catch (e) {
         console.error(e)
         res.status(500).end()
