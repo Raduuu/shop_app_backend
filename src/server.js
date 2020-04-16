@@ -22,6 +22,8 @@ app.use(morgan('dev'))
 app.post('/signup', signup)
 app.post('/signin', signin)
 
+app.use('/', () => 'Hello World')
+
 app.use('/api', protect)
 app.post('/api/changepassword', changePassword)
 app.post('/api/checkout', checkout)
