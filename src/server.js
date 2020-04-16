@@ -12,6 +12,14 @@ import checkout from './utils/checkout'
 
 export const app = express()
 
+const helloWorld = () => {
+    try {
+        return 'Hello World'
+    } catch (e) {
+        console.error(e)
+    }
+}
+
 app.disable('x-powered-by')
 
 app.use(cors())
@@ -22,7 +30,9 @@ app.use(morgan('dev'))
 app.post('/signup', signup)
 app.post('/signin', signin)
 
-app.use('/', () => 'Hello World')
+app.get('/', function(req, res) {
+    res.send('hello world')
+})
 
 app.use('/api', protect)
 app.post('/api/changepassword', changePassword)
