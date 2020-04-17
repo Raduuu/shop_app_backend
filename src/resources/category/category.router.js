@@ -1,14 +1,15 @@
 import { Router } from 'express'
-import controllers from './product.controllers'
+import controllers from './category.controllers'
 
 const router = Router()
 
-// /api/product
+// /api/category
 router
     .route('/')
     .get(controllers.getMany)
     .post(controllers.createOne)
-// /api/product/:id
+
+// /api/category/:id
 router
     .route('/:id')
     .get(controllers.getOne)

@@ -38,17 +38,17 @@ const productSchema = new _mongoose.default.Schema({
     type: _mongoose.default.SchemaTypes.ObjectId,
     ref: 'user',
     required: true
-  } // list: {
-  //   type: mongoose.SchemaTypes.ObjectId,
-  //   ref: 'list',
-  //   required: true
-  // }
-
+  },
+  category: {
+    type: String,
+    ref: 'category',
+    required: true
+  }
 }, {
   timestamps: true
 });
 productSchema.index({
-  list: 1,
+  category: 1,
   name: 1
 }, {
   unique: true

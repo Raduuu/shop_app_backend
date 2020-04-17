@@ -30,16 +30,16 @@ const productSchema = new mongoose.Schema(
             type: mongoose.SchemaTypes.ObjectId,
             ref: 'user',
             required: true
+        },
+        category: {
+            type: String,
+            ref: 'category',
+            required: true
         }
-        // list: {
-        //   type: mongoose.SchemaTypes.ObjectId,
-        //   ref: 'list',
-        //   required: true
-        // }
     },
     { timestamps: true }
 )
 
-productSchema.index({ list: 1, name: 1 }, { unique: true })
+productSchema.index({ category: 1, name: 1 }, { unique: true })
 
 export const Product = mongoose.model('product', productSchema)

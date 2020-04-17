@@ -23,7 +23,7 @@ var _user = _interopRequireDefault(require("./resources/user/user.router"));
 
 var _product = _interopRequireDefault(require("./resources/product/product.router"));
 
-var _list = _interopRequireDefault(require("./resources/list/list.router"));
+var _category = _interopRequireDefault(require("./resources/category/category.router"));
 
 var _checkout = _interopRequireDefault(require("./utils/checkout"));
 
@@ -48,7 +48,7 @@ app.post('/api/changepassword', _auth.changePassword);
 app.post('/api/checkout', _checkout.default);
 app.use('/api/user', _user.default);
 app.use('/api/product', _product.default);
-app.use('/api/list', _list.default);
+app.use('/api/category', _category.default);
 
 const start = async () => {
   try {

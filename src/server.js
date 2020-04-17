@@ -7,7 +7,7 @@ import { signup, signin, protect, changePassword } from './utils/auth'
 import { connect } from './utils/db'
 import userRouter from './resources/user/user.router'
 import productRouter from './resources/product/product.router'
-import listRouter from './resources/list/list.router'
+import categoryRouter from './resources/category/category.router'
 import checkout from './utils/checkout'
 
 export const app = express()
@@ -31,7 +31,7 @@ app.post('/api/changepassword', changePassword)
 app.post('/api/checkout', checkout)
 app.use('/api/user', userRouter)
 app.use('/api/product', productRouter)
-app.use('/api/list', listRouter)
+app.use('/api/category', categoryRouter)
 
 export const start = async () => {
     try {
