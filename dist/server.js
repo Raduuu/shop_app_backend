@@ -31,15 +31,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const app = (0, _express.default)();
 exports.app = app;
-
-const helloWorld = () => {
-  try {
-    return 'Hello World';
-  } catch (e) {
-    console.error(e);
-  }
-};
-
 app.disable('x-powered-by');
 app.use((0, _cors.default)());
 app.use((0, _bodyParser.json)());

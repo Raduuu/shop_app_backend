@@ -12,14 +12,6 @@ import checkout from './utils/checkout'
 
 export const app = express()
 
-const helloWorld = () => {
-    try {
-        return 'Hello World'
-    } catch (e) {
-        console.error(e)
-    }
-}
-
 app.disable('x-powered-by')
 
 app.use(cors())
