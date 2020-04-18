@@ -12,7 +12,7 @@ const checkout = async (req, res) => {
             .exec()
 
         for (let i = 0; i < req.body.products.length; i++) {
-            totalPrice = totalPrice + product.price
+            totalPrice = totalPrice + req.body.products[i].price
         }
 
         if (totalPrice > user.coins) {
