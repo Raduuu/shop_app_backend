@@ -38,7 +38,10 @@ const getMany = model => async (req, res) => {
     const resultsPerPage = 10;
     const page = req.query.page > 1 ? req.query.page : 1;
     const count = await model.count();
-    const docs = await model.find({}).skip(resultsPerPage * page - resultsPerPage).limit(resultsPerPage).lean().exec();
+    const query = req.query.category !== 'all' && req.query.category !== undefined ? {
+      category: req.query.category
+    } : {};
+    const docs = await model.find(query).skip(resultsPerPage * page - resultsPerPage).limit(resultsPerPage).lean().exec();
     res.status(200).json({
       data: docs,
       count: count
