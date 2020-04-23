@@ -23,9 +23,9 @@ describe('API Authentication:', () => {
   });
   describe('api auth', () => {
     test('api should be locked down', async () => {
-      let response = await (0, _supertest.default)(_server.app).get('/api/item');
+      let response = await (0, _supertest.default)(_server.app).get('/api/product');
       expect(response.statusCode).toBe(401);
-      response = await (0, _supertest.default)(_server.app).get('/api/list');
+      response = await (0, _supertest.default)(_server.app).get('/api/category');
       expect(response.statusCode).toBe(401);
       response = await (0, _supertest.default)(_server.app).get('/api/user');
       expect(response.statusCode).toBe(401);
@@ -35,7 +35,7 @@ describe('API Authentication:', () => {
 
       const id = _mongoose.default.Types.ObjectId();
 
-      const results = await Promise.all([(0, _supertest.default)(_server.app).get('/api/item').set('Authorization', jwt), (0, _supertest.default)(_server.app).get(`/api/item/${id}`).set('Authorization', jwt), (0, _supertest.default)(_server.app).post('/api/item').set('Authorization', jwt), (0, _supertest.default)(_server.app).put(`/api/item/${id}`).set('Authorization', jwt), (0, _supertest.default)(_server.app).delete(`/api/item/${id}`).set('Authorization', jwt)]);
+      const results = await Promise.all([(0, _supertest.default)(_server.app).get('/api/product').set('Authorization', jwt), (0, _supertest.default)(_server.app).get(`/api/product/${id}`).set('Authorization', jwt), (0, _supertest.default)(_server.app).post('/api/product').set('Authorization', jwt), (0, _supertest.default)(_server.app).put(`/api/product/${id}`).set('Authorization', jwt), (0, _supertest.default)(_server.app).delete(`/api/product/${id}`).set('Authorization', jwt)]);
       results.forEach(res => expect(res.statusCode).not.toBe(401));
     });
   });
