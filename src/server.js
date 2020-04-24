@@ -9,6 +9,7 @@ import userRouter from './resources/user/user.router'
 import productRouter from './resources/product/product.router'
 import categoryRouter from './resources/category/category.router'
 import checkout from './utils/checkout'
+import { search } from './resources/product/product.controllers'
 
 export const app = express()
 
@@ -32,6 +33,7 @@ app.post('/api/checkout', checkout)
 app.use('/api/user', userRouter)
 app.use('/api/product', productRouter)
 app.use('/api/category', categoryRouter)
+app.use('/api/search', search)
 
 export const start = async () => {
     try {
