@@ -20,7 +20,6 @@ export const getMany = model => async (req, res) => {
     try {
         const resultsPerPage = 10
         const page = req.query.page > 1 ? req.query.page : 1
-        const count = await model.count()
         const query =
             req.query.category !== 'all' && req.query.category !== undefined
                 ? { category: req.query.category }
@@ -32,7 +31,7 @@ export const getMany = model => async (req, res) => {
             .lean()
             .exec()
 
-        res.status(200).json({ data: docs, count: count })
+        res.status(200).json({ data: docs, count: docs.length })
     } catch (e) {
         console.error(e)
         res.status(400).end()
