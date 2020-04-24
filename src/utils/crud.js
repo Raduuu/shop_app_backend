@@ -20,10 +20,14 @@ export const getMany = model => async (req, res) => {
     try {
         const resultsPerPage = 10
         const page = req.query.page > 1 ? req.query.page : 1
-        const query =
-            req.query.category !== 'all' && req.query.category !== undefined
-                ? { category: req.query.category }
-                : {}
+        let query
+        if (req.query.category !== 'all' && req.query.category !== undefined) {
+            query = { category: req.query.category }
+        } else if (req.query.price !== 'all' && req.query.price !== undefined) {
+            query = { price: { $lt: req.query.price } }
+        } else {
+            query = {}
+        }
         const docs = await model
             .find(query)
             .skip(resultsPerPage * page - resultsPerPage)
