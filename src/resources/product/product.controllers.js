@@ -6,10 +6,10 @@ export default crudControllers(Product)
 export const search = async (req, res) => {
     try {
         const products = await Product.find({
-            name: { $regex: `.*${req.query.query}.*` }
+            name: { $regex: `.*(?i)${req.query.query}.*` }
         })
         if (products.length > 0) {
-            return res.status(200).send({ products })
+            return res.status(200).send({ products, count: products.length })
         } else {
             return res.status(400).send({ message: 'Not found' })
         }
