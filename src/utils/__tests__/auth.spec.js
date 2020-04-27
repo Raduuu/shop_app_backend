@@ -7,18 +7,12 @@ import { User } from '../../resources/user/user.model'
 describe('Authentication:', () => {
     describe('newToken', () => {
         test('creates new jwt from user', () => {
-            const id = 123
-            const token = newToken({ id })
+            const _id = 123
+            const token = newToken({ _id })
 
-            console.log('token', token)
             const user = jwt.verify(token, config.secrets.jwt)
 
-            console.log('user', user)
-            console.log('user', user)
-            console.log('user', user)
-            console.log('user', user)
-
-            // expect(user.id).toBe(id)
+            expect(user.id).toBe(_id)
         })
     })
 
