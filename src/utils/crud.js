@@ -21,12 +21,23 @@ export const getMany = model => async (req, res) => {
         const resultsPerPage = 10
         const page = req.query.page > 1 ? req.query.page : 1
         let query
-        if (req.query.category !== 'all' && req.query.category !== undefined) {
+        let filter = false
+        const count = await model.count()
+        if (
+            req.query.category !== 'Category' &&
+            req.query.category !== undefined
+        ) {
             query = { category: req.query.category }
-        } else if (req.query.price !== 'all' && req.query.price !== undefined) {
+            filter = true
+        } else if (
+            req.query.price !== 'Price' &&
+            req.query.price !== undefined
+        ) {
             query = { price: { $lt: req.query.price } }
+            filter = true
         } else {
             query = {}
+            filter = false
         }
         const docs = await model
             .find(query)
@@ -35,7 +46,10 @@ export const getMany = model => async (req, res) => {
             .lean()
             .exec()
 
-        res.status(200).json({ data: docs, count: docs.length })
+        res.status(200).json({
+            data: docs,
+            count: filter ? docs.length : count
+        })
     } catch (e) {
         console.error(e)
         res.status(400).end()
