@@ -7,7 +7,6 @@ describe('crud controllers', () => {
     describe('getOne', async () => {
         test('finds by authenticated user and id', async () => {
             expect.assertions(2)
-
             const user = mongoose.Types.ObjectId()
             const category = await Category.create({
                 name: 'category',
@@ -29,7 +28,9 @@ describe('crud controllers', () => {
                     return this
                 },
                 json(result) {
-                    expect(result.data._id.toString()).toBe(list._id.toString())
+                    expect(result.data._id.toString()).toBe(
+                        category._id.toString()
+                    )
                 }
             }
 
@@ -69,10 +70,10 @@ describe('crud controllers', () => {
             expect.assertions(4)
 
             const user = mongoose.Types.ObjectId()
+
             await Category.create([
                 { name: 'category', createdBy: user },
-                { name: 'other', createdBy: user },
-                { name: 'category', createdBy: mongoose.Types.ObjectId() }
+                { name: 'other', createdBy: user }
             ])
 
             const req = {
@@ -171,7 +172,7 @@ describe('crud controllers', () => {
                     return this
                 },
                 json(results) {
-                    expect(`${results.data._id}`).toBe(`${list._id}`)
+                    expect(`${results.data._id}`).toBe(`${category._id}`)
                     expect(results.data.name).toBe(update.name)
                 }
             }
@@ -226,7 +227,7 @@ describe('crud controllers', () => {
                     return this
                 },
                 json(results) {
-                    expect(`${results.data._id}`).toBe(`${list._id}`)
+                    expect(`${results.data._id}`).toBe(`${category._id}`)
                 }
             }
 

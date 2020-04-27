@@ -8,29 +8,40 @@ describe('Product model', () => {
             expect(name).toEqual({
                 type: String,
                 required: true,
+                text: true,
                 trim: true,
                 maxlength: 50
             })
         })
 
-        test('status', () => {
-            const status = Product.schema.obj.status
-            expect(status).toEqual({
+        test('description', () => {
+            const description = Product.schema.obj.description
+            expect(description).toEqual({
                 type: String,
                 required: true,
-                enum: ['active', 'complete', 'pastdue'],
-                default: 'active'
+                trim: true,
+                maxlength: 100
             })
         })
 
-        test('notes', () => {
-            const notes = Product.schema.obj.notes
-            expect(notes).toEqual(String)
+        test('quantity', () => {
+            const quantity = Product.schema.obj.quantity
+            expect(quantity).toEqual({
+                type: Number,
+                required: true,
+                trim: true,
+                maxlength: 3
+            })
         })
 
-        test('due', () => {
-            const due = Product.schema.obj.due
-            expect(due).toEqual(Date)
+        test('price', () => {
+            const price = Product.schema.obj.price
+            expect(price).toEqual({
+                type: Number,
+                required: true,
+                trim: true,
+                maxlength: 3
+            })
         })
 
         test('createdBy', () => {
@@ -42,11 +53,11 @@ describe('Product model', () => {
             })
         })
 
-        test('list', () => {
-            const list = Product.schema.obj.list
-            expect(list).toEqual({
-                type: mongoose.SchemaTypes.ObjectId,
-                ref: 'list',
+        test('category', () => {
+            const category = Product.schema.obj.category
+            expect(category).toEqual({
+                type: String,
+                ref: 'category',
                 required: true
             })
         })
