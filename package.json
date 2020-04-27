@@ -9,7 +9,7 @@
     },
     "scripts": {
         "build": "babel src --out-dir dist",
-        "test": "NODE_ENV=testing jest --forceExit --detectOpenHandles  --silent",
+        "test": "NODE_ENV=testing jest --forceExit --detectOpenHandles",
         "test-routes": "yarn test -t router",
         "test-models": "yarn test -t model",
         "test-controllers": "yarn test -t controllers",
@@ -62,7 +62,7 @@
         "supertest": "^3.3.0"
     },
     "jest": {
-        "verbose": true,
+        "verbose": false,
         "testURL": "http://localhost/",
         "testEnvironment": "node",
         "setupTestFrameworkScriptFile": "<rootDir>/test-db-setup.js",
