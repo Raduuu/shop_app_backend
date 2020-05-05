@@ -31,7 +31,7 @@ app.use('/api', protect)
 app.post('/api/changepassword', changePassword)
 app.post('/api/checkout', checkout)
 app.use('/api/user', userRouter)
-app.use('/api/product', productRouter)
+app.use('/api/product', productRouter) // move search here
 app.use('/api/category', categoryRouter)
 app.use('/api/search', search)
 
