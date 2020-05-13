@@ -19,28 +19,21 @@ export const getOne = model => async (req, res) => {
 export const getMany = model => async (req, res) => {
     try {
         const resultsPerPage = 10
-        const page =
-            req.query && req.query.page && req.query.page > 1
-                ? req.query.page
-                : 1
-        let query
+        const page = req?.query?.page > 1 ? req.query.page : 1
+        let query = {}
         let filter = false
         const count = await model.count()
-        if (
-            req.query &&
-            req.query.category !== 'Category' &&
-            req.query.category !== undefined
-        ) {
-            query = { category: req.query.category }
-            filter = true
-        } else if (
-            req.query &&
-            req.query.price !== 'Price' &&
-            req.query.price !== undefined
-        ) {
-            query = { price: { $lt: req.query.price } }
-            filter = true
-        } else {
+        for (let param in req?.query) {
+            if (
+                req?.query[param].toLocaleLowerCase() !== param &&
+                req?.query[param] !== undefined
+            ) {
+                param === 'price'
+                    ? (query[param] = { $lt: req.query.price })
+                    : (query[param] = req.query[param])
+            }
+        }
+        if (Object.keys(req.query).length === 0) {
             query = {}
             filter = false
         }
