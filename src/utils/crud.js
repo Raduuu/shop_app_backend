@@ -33,9 +33,13 @@ export const getMany = model => async (req, res) => {
                     : (query[param] = req.query[param])
             }
         }
+
         if (Object.keys(req.query).length === 0) {
             query = {}
             filter = false
+        }
+        if (query.page) {
+            delete query.page
         }
         const docs = await model
             .find(query)
